@@ -1013,6 +1013,20 @@ func (s *Action) GetCommands() []*cli.Command {
 				"This command displays version and build time information.",
 			Action: s.Version,
 		},
+		{
+			Name:        "exec",
+			Usage:       "Run command and pass secret value as a file",
+			Description: "",
+			Before:      s.IsInitialized,
+			Action:      s.Exec,
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:  "filename",
+					Usage: "File to create instead of picking a random path",
+				},
+			},
+			BashComplete: s.Complete,
+		},
 	}
 
 	// crypto and storage backends can add their own commands if they need to
